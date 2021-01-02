@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="sub_list">
+          <field name="name">bista_sub list</field>
+          <field name="model">training.subjects</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="sub_name"/>
+              <field name="sub_trainer" widget="many2many_tags" decoration-bf="1" options="{'color_field': 'color'}"/>
+              <field name="sub_topic" widget="many2many_tags" />
+              <field name="desc"/>
+              <field name="color" invisible="1"/>
+            </tree>
+          </field>
+        </record>
+
+         <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="des_form">
+          <field name="name">bista_sub form</field>
+          <field name="model">training.subjects</field>
+          <field name="arch" type="xml">
+            <form string="Training Subject">
+              <sheet>
+                 <group>
+                     <group>
+                         <field name="sub_name" placeholder="Subject Name"/>
+                         <field name="color" invisible="1"/>
+                     </group>
+                     <group>
+<!--                         Create field 'color' in trainee.py and also in training_subject.py-->
+                         <field name="sub_trainer" placeholder="Trainer Name" widget="many2many_tags"
+                                options = "{'no_quick_create': True, 'no_create_edit' : True, 'color_field': 'color'}"/>
+                     </group>
+                 </group>
+
+<!--                 Creating Notebook views in form for topic and desciption-->
+                 <notebook>
+                     <page string="Subject Topic" >
+                           <field name="sub_topic" placeholder="Subject Topic" widget="many2many">
+                               <tree editable="bottom">
+                                   <field name="top_name"/>
+                                   <field name="subject_name"/>
+                               </tree>
+                           </field>
+                     </page>
+                     <page string="Description">
+                         <group>
+                            <field name="desc" placeholder="Description"/>
+                         </group>
+                     </page>
+                 </notebook>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="sub">
+        <field name="name">Subject Window</field>
+        <field name="res_model">training.subjects</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Subject" id="bista_training_sub" parent="bista_training.menu_3"
+              action="sub"/>
+
+
+    </data>
+</odoo>

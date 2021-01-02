@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="trainee_batch_list">
+          <field name="name">trainee_batch list</field>
+          <field name="model">trainee_batch.trainee_batch</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="trainee_batch_name"/>
+              <field name="trainee_start_date"/>
+              <field name="trainee_end_date"/>
+              <field name="trainee_batch_location"/>
+              <field name="states"/>
+              <field name="trainee_names" widget="many2many_tags"/>
+<!--              <field name="trainer_names" widget="many2many_tags" />-->
+            </tree>
+          </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="trainee_batch_form">
+          <field name="name">trainee_batch form</field>
+          <field name="model">trainee_batch.trainee_batch</field>
+          <field name="arch" type="xml">
+            <form string="Trainee Batch">
+
+              <header>
+                  <field name="states" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+              </header>
+              <sheet>
+                    <div>
+                        <h1>
+                            <field name="trainee_batch_name" placeholder="Batch Name"/>
+                        </h1>
+                    </div>
+                <group>
+                    <group>
+                        <field name="trainee_start_date" placeholder="Start Date"/>
+                        <field name="trainee_batch_location" placeholder="Location"/>
+                    </group>
+                    <group>
+                        <field name="trainee_end_date" placeholder="End Date"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Trainees">
+                        <field name="trainee_names">
+                            <tree editable="bottom">
+                                <field name="traine_name_line"/>
+<!--                                <field name="co_model" invisible="1"/>-->
+                                <field name="batch2_id" invisible="1"/>
+
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="traine_name_line"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Trainers">
+                        <field name="trainer_names">
+                            <tree editable="bottom">
+                                <field name="trainer_name_line"/>
+                                <field name="co_model2" invisible="1"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="trainer_name_line"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Training Topics">
+                        <field name="training_topics"/>
+                    </page>
+                </notebook>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+
+                            <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="trainee_batch_action">
+          <field name="name">Batch Window</field>
+          <field name="res_model">trainee_batch.trainee_batch</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Batch" id="trainee_batch_submenu" parent="bista_training.menu_3"
+              action="trainee_batch_action"/>
+
+
+    </data>
+</odoo>

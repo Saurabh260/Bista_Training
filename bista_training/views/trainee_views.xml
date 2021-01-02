@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="bista_training_list">
+      <field name="name">bista_training list</field>
+      <field name="model">bista_training.bista_training</field>
+      <field name="arch" type="xml">
+<!--          Decoration is use to color the each line with different BG color like danger=red success=green etc.-->
+        <tree decoration-success= "state == 'employed'" decoration-danger="state == 'rejected'">
+          <field name="image"/>
+          <field name="seq_name"/>
+          <field name="name"/>
+          <field name="firstname"/>
+          <field name="lastname"/>
+          <field name="email" widget="email"/>
+          <field name="gender"/>
+          <field name="dob" />
+          <field name="doj"/>
+          <field name="trainee_des"/>
+          <field name="trainee_loc"/>
+          <field name="priority" readonly="1"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- explicit form view definition -->
+    <record model="ir.ui.view" id="bista_training_form">
+      <field name="name">bista_training form</field>
+      <field name="model">bista_training.bista_training</field>
+      <field name="arch" type="xml">
+        <form string="Traniee">
+
+<!--            Status aand Button -->
+          <header>
+                  <button name="confirm" type="object" string="Confirm" states="new" class="oe_highlight" />
+                  <button name="action_rejected" type="object" string="Rejected" states="training" class="oe_highlight" />
+                  <button name="action_employed" type="object" string="Employed" states="training" class="oe_highlight" />
+                  <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+          </header>
+
+          <sheet>
+            <widget name="web_ribbon" text="Employed" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'employed')]}"/>
+            <widget name="web_ribbon" text="Rejected" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'rejected')]}"/>
+            <div class="oe_title">
+              <h1>
+                <field name="seq_name" readonly="1"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <h2>
+                  <field name="name" default_focus="1" placeholder="Name"/>
+                </h2>
+              </group>
+              <group>
+                <h3>
+                  <field name="image" widget="image" class="oe_avatar"/>
+                </h3>
+              </group>
+            </group>
+            <group>
+              <group>
+                <field name="firstname" placeholder="First Name"/>
+                <field name="email" widget="email" placeholder="Email ID"/>
+                <field name="dob" placeholder="Date Of Birth" options="{'datepicker': {'warn_future': true}}"/>
+                <field name="trainee_des" placeholder="Designation" options = "{'no_quick_create': True, 'no_create_edit' : True}"/>
+                <field name="priority" widget="priority"/>
+              </group>
+               <group>
+                <field name="lastname" placeholder="Last Name"/>
+                 <field name="gender" placeholder="Gender"/>
+                 <field name="doj" placeholder="Date Of Joining"/>
+                 <field name="trainee_loc" placeholder="Location" options = "{'no_quick_create': True, 'no_create_edit' : True}"/>
+                 <field name="employee_id" readonly="1"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="activity_ids" widget="mail_activity"/>
+              <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- explicit Kanban view definition    -->
+    <record id="trainee_kanban" model="ir.ui.view">
+            <field name="name">bista_training kanban</field>
+            <field name="model">bista_training.bista_training</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column o_opportunity_kanban">
+                    <field name="state" statusbar_visible="new,training,rejected,employed"/>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="seq_name"/>
+                    <field name="email"/>
+                    <field name="gender"/>
+                    <field name="dob"/>
+                    <field name="priority" readonly="1"/>
+                    <field name="trainee_loc"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill bista_training_kanban">
+                                <t t-if="record.image.raw_value">
+                                    <div class="o_kanban_image_fill_left d-none d-md-block"
+                                        t-attf-style="background-image:url('#{kanban_image('bista_training.bista_training', 'image', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <img class="o_kanban_image" alt="Avatar" t-att-src='_s + "/base/static/img/avatar_grey.png"'/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title"><field name="display_name"/></strong>
+                                    <div class="o_kanban_tags_section"/>
+                                    <ul>
+                                        <li>Trainee ID : <field name="seq_name"/></li>
+                                        <li>Name : <field name="name"/></li>
+                                        <li>Gender : <field name="gender"/></li>
+                                        <li>Email : <field name="email" widget="email"/></li>
+                                        <li>DOB : <field name="dob"/></li>
+                                        <li>Priority : <field name="priority" readonly="1" widget="priority"/></li>
+                                        <li>Location : <field name="trainee_loc"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+
+
+
+          <!--How To Define Search View in Odoo-->
+    <!--  https://www.youtube.com/watch?v=hKigPT7GF7E&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=10  -->
+    <record id="trainee_search" model="ir.ui.view">
+        <field name="name">trainee search</field>
+        <field name="model">bista_training.bista_training</field>
+        <field name="arch" type="xml">
+            <search string="Search Trainee">
+
+<!--                This is for all the field we want to add in the search bar ('|' = or):- -->
+                <field name="name" filter_domain="['|',('name', 'ilike', self),('seq_name', 'ilike', self)]"/>
+                <field name="seq_name"/>
+                <field name="email" filter_domain="[('email','ilike',self)]"/>
+                <field name="trainee_des" filter_domain="[('trainee_des','ilike',self)]"/>
+                <field name="trainee_loc" filter_domain="[('trainee_loc','ilike',self)]"/>
+
+<!--                This for all the field we want to add in filter bar:- -->
+                <separator/>
+                <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+
+<!--                This for all the field we want to add in Groupby:- -->
+                <group expand="0" string="Group By">
+                    <filter string="Location" name="trainee_loc" context="{'group_by':'trainee_loc'}"/>
+                    <filter string="Designation" name="trainee_des" context="{'group_by':'trainee_des'}"/>
+                    <filter string="State" name="trainee_des" context="{'group_by':'state'}"/>
+                </group>
+<!--            Below searchpanel code is to add searchpanel in the search view-->
+                <searchpanel>
+                    <field name="trainee_des" icon="fa-building"/>
+                    <field name="state" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="bista_training.action_window">
+      <field name="name">Trainee Window</field>
+      <field name="res_model">bista_training.bista_training</field>
+      <field name="view_mode">kanban,tree,form</field>
+<!--      <field name="context">{'search_default_groupby_stages': 1}</field>-->
+    </record>
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bista.action_server">
+      <field name="name">bista server</field>
+      <field name="model_id" ref="model_bista_training_bista_training"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Bista Training" id="bista_training.menu_root"
+              web_icon="bista_training,static/description/icon.png"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Trainee" id="bista_training.menu_1" parent="bista_training.menu_root"/>
+    <menuitem name="Trainer" id="bista_training.menu_2" parent="bista_training.menu_root"/>
+    <menuitem name="Training" id="bista_training.menu_3" parent="bista_training.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="List" id="bista_training.menu_1_list" parent="bista_training.menu_1"
+              action="bista_training.action_window"/>
+
+
+  </data>
+</odoo>

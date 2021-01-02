@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="trainee_attendance_list">
+          <field name="name">trainee_record list</field>
+          <field name="model">trainee_record.trainee_record</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="trainee_record_name"/>
+              <field name="trainee_record_date"/>
+              <field name="trainee_batch" />
+<!--              <field name="login_time"/>-->
+<!--              <field name="logout_time"/>-->
+<!--              <field name="hours"/>-->
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="trainee_record_form">
+          <field name="name">trainee_record form</field>
+          <field name="model">trainee_record.trainee_record</field>
+          <field name="arch" type="xml">
+            <form string="Trainee Record">
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', }"/>
+                </header>
+              <sheet>
+                    <div>
+                        <h1>
+                            <field name="trainee_record_name" palceholder="Record Name" readonly="1"/>
+                        </h1>
+                    </div>
+                <group>
+                    <group>
+                        <field name="trainee_record_date" palceholder="Record Date" readonly="1"/>
+<!--                        <field name="login_time" placeholder="Login Time"/>-->
+<!--                        <field name="hours"/>-->
+                    </group>
+                    <group>
+                        <field name="trainee_batch" placeholder="Trainee Batch"/>
+<!--                        <field name="logout_time" placeholder="Logout Time"/>-->
+                    </group>
+
+                </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+                    <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="trainee_record_action">
+          <field name="name">Record Window</field>
+          <field name="res_model">trainee_record.trainee_record</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Record" id="trainee_record_submenu" parent="bista_training.menu_3"
+              action="trainee_record_action"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="des_list">
+          <field name="name">bista_des list</field>
+          <field name="model">trainee.designation</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="des_name"/>
+            </tree>
+          </field>
+        </record>
+
+         <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="des_form">
+          <field name="name">bista_des form</field>
+          <field name="model">trainee.designation</field>
+          <field name="arch" type="xml">
+            <form string="Designation">
+              <sheet>
+                 <group>
+                    <field name="des_name" placeholder="Designation Name"/>
+                 </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="des">
+        <field name="name">Designation Window</field>
+        <field name="res_model">trainee.designation</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Designations" id="bista_training.menu_2_list" parent="bista_training.menu_1"
+              action="des"/>
+
+
+    </data>
+</odoo>

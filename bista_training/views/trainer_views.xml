@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="trainer_list">
+          <field name="name">bista_trainer list</field>
+          <field name="model">trainer.trainer</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="trainer_name"/>
+              <field name="trainer_firstname"/>
+              <field name="trainer_lastname"/>
+            </tree>
+          </field>
+        </record>
+
+             <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="trainer_form">
+          <field name="name">bista_trainer form</field>
+          <field name="model">trainer.trainer</field>
+          <field name="arch" type="xml">
+            <form string="Tranier">
+              <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="trainer_name" readonly="1"/>
+                        </h1>
+                    </div>
+                <group>
+                    <h3>
+                        <field name="trainer_image" widget="image" class="oe_avatar"/>
+                    </h3>
+                </group>
+                <group>
+                  <group>
+                    <field name="trainer_firstname" placeholder="First Name"/>
+                  </group>
+                    <group>
+                    <field name="trainer_lastname" placeholder="Last Name"/>
+                  </group>
+                 </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+            <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="trainer1_action_window">
+          <field name="name">Trainer Window</field>
+          <field name="res_model">trainer.trainer</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="List" id="bista_training" parent="bista_training.menu_2"
+              action="trainer1_action_window"/>
+
+
+    </data>
+</odoo>

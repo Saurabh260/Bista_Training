@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="stages_list">
+          <field name="name">bista_training_stages list</field>
+          <field name="model">training_stages.training_stages</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="training_stages_name"/>
+            </tree>
+          </field>
+        </record>
+
+             <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="stages_form">
+          <field name="name">bista_trainer_stages form</field>
+          <field name="model">training_stages.training_stages</field>
+          <field name="arch" type="xml">
+            <form string="Training Stages">
+              <sheet>
+                <group>
+                    <field name="training_stages_name" placeholder="Stages Name"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="training_batch"/>
+                    </group>
+                    <group>
+                        <field name="training_record"/>
+                    </group>
+                </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+            <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="training_stages">
+          <field name="name">Training Stages</field>
+          <field name="res_model">training_stages.training_stages</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Stages" id="bista_training_stages" parent="bista_training.menu_3"
+              action="training_stages"/>
+
+
+    </data>
+</odoo>

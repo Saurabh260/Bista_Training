@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="top_list">
+          <field name="name">bista_top list</field>
+          <field name="model">training.topics</field>
+          <field name="arch" type="xml">
+            <tree editable="top">
+              <field name="top_name"/>
+              <field name="subject_name"/>
+<!--              <field name="desc"/>-->
+            </tree>
+          </field>
+        </record>
+
+         <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="top_form">
+          <field name="name">bista_top form</field>
+          <field name="model">training.topics</field>
+          <field name="arch" type="xml">
+            <form string="Training Topics">
+              <sheet>
+                 <group>
+                     <group>
+                         <field name="top_name" placeholder="Subject Name"/>
+                     </group>
+                     <group>
+                         <field name="subject_name" placeholder="Subject Name" options = "{'no_quick_create': True, 'no_create_edit' : True}"/>
+                     </group>
+                 </group>
+<!--                 <group>-->
+<!--                     <field name="desc" placeholder="Description"/>-->
+<!--                 </group>-->
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="top">
+        <field name="name">Topic Window</field>
+        <field name="res_model">training.topics</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Topics" id="bista_training_top" parent="bista_training.menu_3"
+              action="top"/>
+
+
+    </data>
+</odoo>

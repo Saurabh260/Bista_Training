@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bista_training_bista_training,bista_training.bista_training,model_bista_training_bista_training,base.group_user,1,1,1,1
+access_trainer_trainer,trainer.trainer,model_trainer_trainer,base.group_user,1,1,1,1
+access_trainee_location,trainee.location,model_trainee_location,base.group_user,1,1,1,1
+access_trainee_designation,trainee.designation,model_trainee_designation,base.group_user,1,1,1,1
+access_training_subjects,training.subjects,model_training_subjects,base.group_user,1,1,1,1
+access_training_topics,training.topics,model_training_topics,base.group_user,1,1,1,1
+access_training_stages_training_stages,training_stages.training_stages,model_training_stages_training_stages,base.group_user,1,1,1,1
+access_trainee_record_trainee_record,trainee_record.trainee_record,model_trainee_record_trainee_record,base.group_user,1,1,1,1
+access_trainee_attendance_trainee_attendance,trainee_attendance.trainee_attendance,model_trainee_attendance_trainee_attendance,base.group_user,1,1,1,1
+access_trainee_batch_trainee_batch,trainee_batch.trainee_batch,model_trainee_batch_trainee_batch,base.group_user,1,1,1,1
+access_trainee_batch2_trainee_batch2,trainee_batch2.trainee_batch2,model_trainee_batch2_trainee_batch2,base.group_user,1,1,1,1
+access_trainer_batch2_trainer_batch2,trainer_batch2.trainer_batch2,model_trainer_batch2_trainer_batch2,base.group_user,1,1,1,1

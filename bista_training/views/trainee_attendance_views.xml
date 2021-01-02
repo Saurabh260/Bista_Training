@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="trainee_attendance_list">
+          <field name="name">trainee_attendance list</field>
+          <field name="model">trainee_attendance.trainee_attendance</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="trainee_attendance_name"/>
+              <field name="trainee_attendance_date"/>
+              <field name="trainee_name" />
+              <field name="login_time"/>
+              <field name="logout_time"/>
+              <field name="hours"/>
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="trainee_attendance_form">
+          <field name="name">trainee_attendance form</field>
+          <field name="model">trainee_attendance.trainee_attendance</field>
+          <field name="arch" type="xml">
+            <form string="Trainee Attendance">
+              <sheet>
+                    <div>
+                        <h1>
+                            <field name="trainee_attendance_name" readonly="1"/>
+                        </h1>
+                    </div>
+                <group>
+                    <group>
+                        <field name="trainee_attendance_date" readonly="1"/>
+                        <field name="login_time" placeholder="Login Time"/>
+                        <field name="hours"/>
+                    </group>
+                    <group>
+                        <field name="trainee_name" placeholder="Trainee Name"/>
+                        <field name="logout_time" placeholder="Logout Time"/>
+                    </group>
+
+                </group>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+                    <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="trainee_attendance_action">
+          <field name="name">Attendance Window</field>
+          <field name="res_model">trainee_attendance.trainee_attendance</field>
+          <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Attendance" id="trainee_attendance_submenu" parent="bista_training.menu_3"
+              action="trainee_attendance_action"/>
+
+
+    </data>
+</odoo>
